@@ -12,11 +12,14 @@ import { motion } from 'framer-motion';
 import { Bell, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { useOrderNotificationSound } from '../../hooks/useOrderNotificationSound';
 
 export default function AdminDashboard() {
   const [collapsed, setCollapsed] = useState(false);
   const [serverData, setServerData] = useState(null);
   const [serverLoading, setServerLoading] = useState(true);
+
+  useOrderNotificationSound();
 
   const { data: orders = [] } = useQuery({
     queryKey: ['adminOrders'],

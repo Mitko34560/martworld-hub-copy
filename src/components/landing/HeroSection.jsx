@@ -64,14 +64,19 @@ export default function HeroSection() {
 
       {/* Gradient orbs */}
       <motion.div 
-        className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 6, repeat: Infinity }}
+        className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-primary/15 rounded-full blur-3xl"
+        animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 7, repeat: Infinity }}
       />
       <motion.div 
-        className="absolute bottom-1/4 -right-32 w-96 h-96 bg-secondary/10 rounded-full blur-3xl"
-        animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 6, repeat: Infinity }}
+        className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] bg-secondary/15 rounded-full blur-3xl"
+        animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 7, repeat: Infinity }}
+      />
+      <motion.div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-violet-900/10 rounded-full blur-3xl pointer-events-none"
+        animate={{ scale: [1, 1.1, 1], opacity: [0.15, 0.3, 0.15] }}
+        transition={{ duration: 10, repeat: Infinity }}
       />
 
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">

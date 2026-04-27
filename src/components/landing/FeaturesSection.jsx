@@ -38,9 +38,9 @@ export default function FeaturesSection() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               whileHover={{ y: -6, scale: 1.02 }}
-              className="bg-card border border-border rounded-xl p-6 group hover:border-primary/30 transition-all duration-300"
+              className="bg-card border border-border rounded-xl p-6 group hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300"
             >
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/25 transition-colors">
                 <f.icon className="w-6 h-6 text-primary" />
               </div>
               <h3 className="font-heading font-bold text-lg text-foreground mb-2">{f.title}</h3>

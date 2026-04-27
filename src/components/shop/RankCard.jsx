@@ -12,10 +12,10 @@ const iconMap = {
 };
 
 const gradients = {
-  brown: 'from-amber-900/80 to-amber-950/90 border-amber-700/40',
-  blue: 'from-sky-600/80 to-sky-800/90 border-sky-500/40',
-  yellow: 'from-yellow-500/80 to-yellow-700/90 border-yellow-400/40',
-  red: 'from-red-700/80 to-red-900/90 border-red-500/40',
+  brown: 'from-violet-900/80 to-purple-950/90 border-violet-700/40',
+  blue: 'from-indigo-700/80 to-violet-900/90 border-indigo-500/40',
+  yellow: 'from-purple-600/80 to-purple-900/90 border-purple-400/40',
+  red: 'from-fuchsia-700/80 to-purple-900/90 border-fuchsia-500/40',
 };
 
 export default function RankCard({ item, onBuy, index }) {

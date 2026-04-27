@@ -10,9 +10,9 @@ const categoryIcons = {
 };
 
 const categoryColors = {
-  money: 'from-green-600/60 to-green-800/60 border-green-500/30',
-  kit: 'from-purple-600/60 to-purple-800/60 border-purple-500/30',
-  resource: 'from-orange-600/60 to-orange-800/60 border-orange-500/30',
+  money: 'from-violet-600/60 to-purple-900/60 border-violet-500/30',
+  kit: 'from-fuchsia-600/60 to-purple-800/60 border-fuchsia-500/30',
+  resource: 'from-indigo-600/60 to-violet-900/60 border-indigo-500/30',
 };
 
 export default function SmallItemCard({ item, onBuy, index }) {

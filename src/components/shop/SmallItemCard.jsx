@@ -30,14 +30,16 @@ export default function SmallItemCard({ item, onBuy, index }) {
       <Icon className="w-8 h-8 text-white/70" />
       <h4 className="font-heading font-bold text-sm text-white">{item.name}</h4>
       {item.amount && <p className="text-xs text-white/60">{item.amount}</p>}
-      <Button 
-        size="sm" 
+      <motion.button
         onClick={() => onBuy(item)}
-        className="w-full mt-auto bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs gap-1"
+        whileHover={{ scale: 1.07, backgroundColor: 'rgba(255,255,255,0.28)' }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ duration: 0.18 }}
+        className="w-full mt-auto flex items-center justify-center gap-1 px-3 py-1.5 rounded-lg bg-white/15 text-white border border-white/30 text-xs font-semibold cursor-pointer"
       >
         <ShoppingCart className="w-3 h-3" />
         {item.price}₽
-      </Button>
+      </motion.button>
     </motion.div>
   );
 }

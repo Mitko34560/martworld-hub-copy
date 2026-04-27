@@ -15,6 +15,8 @@ import AdminNews from './pages/admin/AdminNews';
 import AdminItems from './pages/admin/AdminItems';
 import AdminStats from './pages/admin/AdminStats';
 import AdminChat from './pages/admin/AdminChat';
+import Apply from './pages/Apply';
+import AdminApplications from './pages/admin/AdminApplications';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -50,6 +52,8 @@ const AuthenticatedApp = () => {
       <Route path="/admin/items" element={<AdminItems />} />
       <Route path="/admin/stats" element={<AdminStats />} />
       <Route path="/admin/chat" element={<AdminChat />} />
+      <Route path="/admin/applications" element={<AdminApplications />} />
+      <Route path="/apply" element={<Apply />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, Crown, Ticket, Newspaper, MessageSquare,
-  BarChart3, ChevronLeft, ChevronRight
+  BarChart3, ChevronLeft, ChevronRight, ClipboardList
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -12,15 +12,18 @@ export default function AdminSidebar({ collapsed, setCollapsed }) {
   const location = useLocation();
   const [pendingOrders, setPendingOrders] = useState(0);
   const [unreadChats, setUnreadChats] = useState(0);
+  const [pendingApps, setPendingApps] = useState(0);
 
   useEffect(() => {
     const fetchBadges = async () => {
-      const [orders, messages] = await Promise.all([
+      const [orders, messages, apps] = await Promise.all([
         base44.entities.ShopOrder.filter({ status: 'pending' }),
         base44.entities.ChatMessage.filter({ is_admin: false, is_read: false }),
+        base44.entities.StaffApplication.filter({ status: 'pending' }),
       ]);
       setPendingOrders(orders.length);
       setUnreadChats(messages.length);
+      setPendingApps(apps.length);
     };
     fetchBadges();
     const interval = setInterval(fetchBadges, 10000);
@@ -35,6 +38,7 @@ export default function AdminSidebar({ collapsed, setCollapsed }) {
         { icon: Ticket, label: 'Заказы', path: '/admin/orders', badge: pendingOrders },
         { icon: Newspaper, label: 'Новости', path: '/admin/news', badge: 0 },
         { icon: MessageSquare, label: 'Чат', path: '/admin/chat', badge: unreadChats },
+        { icon: ClipboardList, label: 'Заявки', path: '/admin/applications', badge: pendingApps },
       ],
     },
     {

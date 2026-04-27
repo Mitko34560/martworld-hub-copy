@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ShoppingCart, Shield, Home, Newspaper, Copy } from 'lucide-react';
+import { ShoppingCart, Shield, Home, Newspaper, Copy, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
@@ -43,6 +43,11 @@ export default function Navbar() {
           <Link to="/news">
             <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground gap-2">
               <Newspaper className="w-4 h-4" /> Новости
+            </Button>
+          </Link>
+          <Link to="/apply">
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground gap-2">
+              <Users className="w-4 h-4" /> Персонал
             </Button>
           </Link>
         </div>

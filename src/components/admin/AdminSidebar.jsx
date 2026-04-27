@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, Crown, Ticket, Newspaper, MessageSquare,
@@ -6,33 +6,50 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-
-const sections = [
-  {
-    label: 'ОСНОВНЫЕ',
-    items: [
-      { icon: LayoutDashboard, label: 'Табло', path: '/admin' },
-      { icon: Ticket, label: 'Заказы', path: '/admin/orders' },
-      { icon: Newspaper, label: 'Новости', path: '/admin/news' },
-      { icon: MessageSquare, label: 'Чат', path: '/admin/chat' },
-    ],
-  },
-  {
-    label: 'МАГАЗИН',
-    items: [
-      { icon: Crown, label: 'Привилегии', path: '/admin/items' },
-    ],
-  },
-  {
-    label: 'АНАЛИТИКА',
-    items: [
-      { icon: BarChart3, label: 'Статистика', path: '/admin/stats' },
-    ],
-  },
-];
+import { base44 } from '@/api/base44Client';
 
 export default function AdminSidebar({ collapsed, setCollapsed }) {
   const location = useLocation();
+  const [pendingOrders, setPendingOrders] = useState(0);
+  const [unreadChats, setUnreadChats] = useState(0);
+
+  useEffect(() => {
+    const fetchBadges = async () => {
+      const [orders, messages] = await Promise.all([
+        base44.entities.ShopOrder.filter({ status: 'pending' }),
+        base44.entities.ChatMessage.filter({ is_admin: false, is_read: false }),
+      ]);
+      setPendingOrders(orders.length);
+      setUnreadChats(messages.length);
+    };
+    fetchBadges();
+    const interval = setInterval(fetchBadges, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const sections = [
+    {
+      label: 'ОСНОВНЫЕ',
+      items: [
+        { icon: LayoutDashboard, label: 'Табло', path: '/admin', badge: 0 },
+        { icon: Ticket, label: 'Заказы', path: '/admin/orders', badge: pendingOrders },
+        { icon: Newspaper, label: 'Новости', path: '/admin/news', badge: 0 },
+        { icon: MessageSquare, label: 'Чат', path: '/admin/chat', badge: unreadChats },
+      ],
+    },
+    {
+      label: 'МАГАЗИН',
+      items: [
+        { icon: Crown, label: 'Привилегии', path: '/admin/items', badge: 0 },
+      ],
+    },
+    {
+      label: 'АНАЛИТИКА',
+      items: [
+        { icon: BarChart3, label: 'Статистика', path: '/admin/stats', badge: 0 },
+      ],
+    },
+  ];
 
   return (
     <aside className={cn(
@@ -71,8 +88,22 @@ export default function AdminSidebar({ collapsed, setCollapsed }) {
                       ? "bg-primary/10 text-primary" 
                       : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   )}>
-                    <item.icon className="w-4 h-4 shrink-0" />
-                    {!collapsed && <span>{item.label}</span>}
+                    <div className="relative shrink-0">
+                      <item.icon className="w-4 h-4" />
+                      {item.badge > 0 && (
+                        <span className="absolute -top-2 -right-2 min-w-[16px] h-4 bg-red-500 rounded-full text-[10px] font-bold text-white flex items-center justify-center px-0.5">
+                          {item.badge > 99 ? '99+' : item.badge}
+                        </span>
+                      )}
+                    </div>
+                    {!collapsed && (
+                      <span className="flex-1">{item.label}</span>
+                    )}
+                    {!collapsed && item.badge > 0 && (
+                      <span className="ml-auto min-w-[20px] h-5 bg-red-500 rounded-full text-[10px] font-bold text-white flex items-center justify-center px-1">
+                        {item.badge > 99 ? '99+' : item.badge}
+                      </span>
+                    )}
                   </div>
                 </Link>
               );

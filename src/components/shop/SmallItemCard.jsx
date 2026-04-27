@@ -25,7 +25,7 @@ export default function SmallItemCard({ item, onBuy, index }) {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: index * 0.05 }}
       whileHover={{ scale: 1.05 }}
-      className={`bg-gradient-to-br ${colorClass} border rounded-xl p-4 text-center flex flex-col items-center gap-2`}
+      className={`bg-gradient-to-br ${colorClass} border rounded-xl p-4 text-center flex flex-col items-center gap-2 backdrop-blur-sm shadow-md shadow-violet-950/40 hover:shadow-violet-700/25 hover:shadow-lg transition-shadow duration-300`}
     >
       <Icon className="w-8 h-8 text-white/70" />
       <h4 className="font-heading font-bold text-sm text-white">{item.name}</h4>

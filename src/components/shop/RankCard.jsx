@@ -30,7 +30,7 @@ export default function RankCard({ item, onBuy, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.15 }}
       whileHover={{ y: -8, scale: 1.02 }}
-      className={`relative bg-gradient-to-br ${gradient} border rounded-xl overflow-hidden flex flex-col`}
+      className={`relative bg-gradient-to-br ${gradient} border rounded-xl overflow-hidden flex flex-col backdrop-blur-sm shadow-lg shadow-violet-950/50 hover:shadow-violet-700/30 hover:shadow-xl transition-shadow duration-300`}
     >
       {item.is_popular && (
         <div className="absolute top-3 right-3 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">

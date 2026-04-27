@@ -1,0 +1,30 @@
+{
+  "name": "NewsPost",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "update",
+        "event",
+        "maintenance",
+        "announcement"
+      ],
+      "default": "announcement"
+    },
+    "pinned": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "title",
+    "content"
+  ]
+}

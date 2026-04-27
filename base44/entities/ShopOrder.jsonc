@@ -1,0 +1,35 @@
+{
+  "name": "ShopOrder",
+  "type": "object",
+  "properties": {
+    "player_name": {
+      "type": "string"
+    },
+    "item_name": {
+      "type": "string"
+    },
+    "item_category": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "completed",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "player_email": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "player_name",
+    "item_name",
+    "price"
+  ]
+}

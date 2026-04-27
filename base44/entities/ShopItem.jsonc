@@ -1,0 +1,60 @@
+{
+  "name": "ShopItem",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Item name"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "rank",
+        "money",
+        "kit",
+        "resource"
+      ],
+      "description": "Item category"
+    },
+    "price": {
+      "type": "number",
+      "description": "Price in rubles"
+    },
+    "description": {
+      "type": "string",
+      "description": "Item description"
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of features/perks"
+    },
+    "color": {
+      "type": "string",
+      "description": "Card color theme"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Icon name"
+    },
+    "is_popular": {
+      "type": "boolean",
+      "default": false
+    },
+    "amount": {
+      "type": "string",
+      "description": "Amount for money/resource packs"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "price"
+  ]
+}

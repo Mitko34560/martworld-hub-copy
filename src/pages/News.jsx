@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import Navbar from '../components/landing/Navbar';
 import Footer from '../components/landing/Footer';
+import ChatWidget from '../components/chat/ChatWidget';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -78,6 +79,7 @@ export default function News() {
         )}
       </div>
       <Footer />
+      <ChatWidget />
     </div>
   );
 }

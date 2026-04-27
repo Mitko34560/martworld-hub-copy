@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import Navbar from '../components/landing/Navbar';
 import Footer from '../components/landing/Footer';
+import ChatWidget from '../components/chat/ChatWidget';
 import RankCard from '../components/shop/RankCard';
 import SmallItemCard from '../components/shop/SmallItemCard';
 import BuyDialog from '../components/shop/BuyDialog';
@@ -100,6 +101,7 @@ export default function Shop() {
       </div>
       <Footer />
       <BuyDialog item={selectedItem} open={!!selectedItem} onClose={() => setSelectedItem(null)} />
+      <ChatWidget />
     </div>
   );
 }

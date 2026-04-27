@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  LayoutDashboard, Crown, Ticket, Newspaper, Users, ShieldCheck, 
-  Tags, BarChart3, LineChart, ScrollText, ChevronLeft, ChevronRight
+  LayoutDashboard, Crown, Ticket, Newspaper, MessageSquare,
+  BarChart3, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,7 @@ const sections = [
       { icon: LayoutDashboard, label: 'Табло', path: '/admin' },
       { icon: Ticket, label: 'Заказы', path: '/admin/orders' },
       { icon: Newspaper, label: 'Новости', path: '/admin/news' },
+      { icon: MessageSquare, label: 'Чат', path: '/admin/chat' },
     ],
   },
   {

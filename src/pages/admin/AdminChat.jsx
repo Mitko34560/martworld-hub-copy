@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
+import AdminAuthGate from '../../components/admin/AdminAuthGate';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import { cn } from '@/lib/utils';
@@ -87,6 +88,7 @@ export default function AdminChat() {
   const totalUnread = sessions.reduce((s, sess) => s + sess.unread, 0);
 
   return (
+    <AdminAuthGate>
     <div className="min-h-screen bg-background">
       <AdminSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
       <div className={cn("transition-all duration-300 h-screen flex flex-col", collapsed ? "ml-16" : "ml-60")}>
@@ -214,5 +216,6 @@ export default function AdminChat() {
         </div>
       </div>
     </div>
+    </AdminAuthGate>
   );
 }

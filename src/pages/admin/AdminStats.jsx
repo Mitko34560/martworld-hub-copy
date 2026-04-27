@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { base44 } from '@/api/base44Client';
+import AdminAuthGate from '../../components/admin/AdminAuthGate';
 import { useQuery } from '@tanstack/react-query';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import { cn } from '@/lib/utils';
@@ -35,6 +36,7 @@ export default function AdminStats() {
   ];
 
   return (
+    <AdminAuthGate>
     <div className="min-h-screen bg-background">
       <AdminSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
       <div className={cn("transition-all duration-300 p-6", collapsed ? "ml-16" : "ml-60")}>
@@ -92,5 +94,6 @@ export default function AdminStats() {
         </div>
       </div>
     </div>
+    </AdminAuthGate>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
+import AdminAuthGate from '../../components/admin/AdminAuthGate';
 import { useQuery } from '@tanstack/react-query';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import ServerStatusCards from '../../components/admin/ServerStatusCards';
@@ -42,6 +43,7 @@ export default function AdminDashboard() {
   const isOnline = serverData?.online;
 
   return (
+    <AdminAuthGate>
     <div className="min-h-screen bg-background">
       <AdminSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
       
@@ -92,5 +94,6 @@ export default function AdminDashboard() {
         </main>
       </div>
     </div>
+    </AdminAuthGate>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AdminAuthGate from '../../components/admin/AdminAuthGate';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import AdminSidebar from '../../components/admin/AdminSidebar';
@@ -53,6 +54,7 @@ export default function AdminApplications() {
   const filtered = filter === 'all' ? apps : apps.filter(a => a.status === filter);
 
   return (
+    <AdminAuthGate>
     <div className="min-h-screen bg-background flex">
       <AdminSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
       <main className={`flex-1 transition-all duration-300 ${collapsed ? 'ml-16' : 'ml-60'}`}>
@@ -182,6 +184,7 @@ export default function AdminApplications() {
         </div>
       </main>
     </div>
+    </AdminAuthGate>
   );
 }
 

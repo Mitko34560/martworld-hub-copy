@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Trash2, Edit, Crown, Coins, Swords, Package } from 'lucide-react';
+import { logAdminAction } from '../../lib/adminLogger';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
@@ -44,8 +45,21 @@ export default function AdminItems() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }) => base44.entities.ShopItem.update(id, data),
-    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['adminItems'] }); queryClient.invalidateQueries({ queryKey: ['shopItems'] }); toast.success('Товар обновлён'); resetForm(); },
+    mutationFn: ({ id, data }) => base44.entities.ShopItem.update(id, data).then(res => ({ res, id, data })),
+    onSuccess: ({ id, data }) => {
+      queryClient.invalidateQueries({ queryKey: ['adminItems'] });
+      queryClient.invalidateQueries({ queryKey: ['shopItems'] });
+      toast.success('Товар обновлён');
+      if (editItem && editItem.price !== data.price) {
+        logAdminAction({
+          action_type: 'item_price_changed',
+          object_id: id,
+          object_name: data.name || editItem?.name || `Товар #${id}`,
+          details: `${editItem.price}₽ → ${data.price}₽`,
+        });
+      }
+      resetForm();
+    },
   });
 
   const deleteMutation = useMutation({

@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Trash2, Pin, Edit } from 'lucide-react';
+import { logAdminAction } from '../../lib/adminLogger';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
@@ -51,10 +52,16 @@ export default function AdminNews() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id) => base44.entities.NewsPost.delete(id),
-    onSuccess: () => {
+    mutationFn: ({ id, post }) => base44.entities.NewsPost.delete(id).then(() => ({ id, post })),
+    onSuccess: ({ id, post }) => {
       queryClient.invalidateQueries({ queryKey: ['adminNews'] });
       toast.success('Новость удалена');
+      logAdminAction({
+        action_type: 'news_deleted',
+        object_id: id,
+        object_name: post?.title || `Новость #${id}`,
+        details: `Категория: ${post?.category || '—'}`,
+      });
     },
   });
 
@@ -119,7 +126,7 @@ export default function AdminNews() {
                   <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => handleEdit(post)}>
                     <Edit className="w-3 h-3" />
                   </Button>
-                  <Button size="icon" variant="ghost" className="h-7 w-7 text-destructive" onClick={() => deleteMutation.mutate(post.id)}>
+                  <Button size="icon" variant="ghost" className="h-7 w-7 text-destructive" onClick={() => deleteMutation.mutate({ id: post.id, post })}>
                     <Trash2 className="w-3 h-3" />
                   </Button>
                 </div>

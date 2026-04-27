@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, Crown, Ticket, Newspaper, MessageSquare,
-  BarChart3, ChevronLeft, ChevronRight, ClipboardList
+  BarChart3, ChevronLeft, ChevronRight, ClipboardList, Activity
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -51,6 +51,7 @@ export default function AdminSidebar({ collapsed, setCollapsed }) {
       label: 'АНАЛИТИКА',
       items: [
         { icon: BarChart3, label: 'Статистика', path: '/admin/stats', badge: 0 },
+        { icon: Activity, label: 'Журнал', path: '/admin/logs', badge: 0 },
       ],
     },
   ];

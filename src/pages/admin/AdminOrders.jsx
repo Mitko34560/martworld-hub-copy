@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Check, X, Trash2 } from 'lucide-react';
+import { logAdminAction } from '../../lib/adminLogger';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
@@ -31,10 +32,17 @@ export default function AdminOrders() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }) => base44.entities.ShopOrder.update(id, data),
-    onSuccess: () => {
+    mutationFn: ({ id, data, order }) => base44.entities.ShopOrder.update(id, data).then(res => ({ res, id, data, order })),
+    onSuccess: ({ id, data, order }) => {
       queryClient.invalidateQueries({ queryKey: ['adminOrders'] });
       toast.success('Статус обновлён');
+      const statusLabels = { pending: 'Ожидает', completed: 'Выполнен', cancelled: 'Отменён' };
+      logAdminAction({
+        action_type: 'order_status_changed',
+        object_id: id,
+        object_name: order?.player_name ? `Заказ ${order.player_name}` : `Заказ #${id}`,
+        details: `${statusLabels[order?.status] || order?.status} → ${statusLabels[data.status] || data.status}`,
+      });
     },
   });
 
@@ -99,11 +107,11 @@ export default function AdminOrders() {
                             {order.status === 'pending' && (
                               <>
                                 <Button size="icon" variant="ghost" className="h-7 w-7 text-green-400 hover:text-green-300"
-                                  onClick={() => updateMutation.mutate({ id: order.id, data: { status: 'completed' } })}>
+                                  onClick={() => updateMutation.mutate({ id: order.id, data: { status: 'completed' }, order })}>
                                   <Check className="w-4 h-4" />
                                 </Button>
                                 <Button size="icon" variant="ghost" className="h-7 w-7 text-red-400 hover:text-red-300"
-                                  onClick={() => updateMutation.mutate({ id: order.id, data: { status: 'cancelled' } })}>
+                                  onClick={() => updateMutation.mutate({ id: order.id, data: { status: 'cancelled' }, order })}>
                                   <X className="w-4 h-4" />
                                 </Button>
                               </>
